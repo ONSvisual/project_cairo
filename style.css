@@ -14,6 +14,7 @@ p,.keyword{
 body{
   max-width: 1000px;
   margin:0px auto;
+  font-family: 'Cairo', sans-serif;
 }
 .title {
   width: 100%;
@@ -27,4 +28,11 @@ body{
 
 img {
   width: 100%;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+    font-weight: 800;
+    font-size: 18px;
 }

@@ -4,14 +4,21 @@ var publicSpreadsheetUrl = 'https://docs.google.com/spreadsheets/d/1ekruh3QMhnZs
   function init() {
     Tabletop.init( { key: publicSpreadsheetUrl,
                      callback: showInfo,
-                     simpleSheet: true } )
+                     simpleSheet: true } );
   }
 
   function showInfo(data_links) {
+    console.log(data_links)
+
+    function gettingData(i) {
+      setTimeout(function() {
+        var link = data_links[data_links.length-(i+1)]['FULL_ONS_URL'];
+        makeCorsRequest(link);
+      },100)
+    }
 
     for(i=0; i<data_links.length; i++) {
-      var link = data_links[i]['FULL_ONS_URL'];
-      makeCorsRequest(link)
+      (gettingData(i))
     }
   }
 
@@ -63,7 +70,6 @@ function makeCorsRequest(link) {
 //     // Function that will process the response from the API
     var processResponse = function() {
         var data = JSON.parse(this.response);
-        console.log(data)
 
         // place holders
         var element = document.getElementById("page");
@@ -73,6 +79,7 @@ function makeCorsRequest(link) {
         //image
         var img = document.createElement('img');
         var divImage = document.createElement("div");
+        var imageLink = document.createElement('a');
         divImage.className = 'thumbnail';
         if (data.imageUri === '') {
           img.src = 'generic.png';
@@ -82,7 +89,10 @@ function makeCorsRequest(link) {
           img.src = 'https://www.ons.gov.uk/resource?uri='+ data.imageUri;
 
         }
-        divImage.appendChild(img);
+        imageLink.appendChild(img);
+        imageLink.href = 'https://www.ons.gov.uk/' + data.uri;
+        imageLink.target="_blank";
+        divImage.appendChild(imageLink);
         container.appendChild(divImage);
         element.appendChild(container);
 
@@ -95,6 +105,7 @@ function makeCorsRequest(link) {
         title.appendChild(node);
         link.appendChild(title);
         link.href = 'https://www.ons.gov.uk/' + data.uri;
+        link.target="_blank";
         divTitle.appendChild(link);
         container.appendChild(divTitle);
         element.appendChild(container);
