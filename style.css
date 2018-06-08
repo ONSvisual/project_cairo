@@ -4,6 +4,8 @@ p,.keyword{
 
 .container {
   margin: 20px;
+  padding:10px;
+  background-color:#eee;
   width: 28%;
   max-width: 333px;
   display: inline-block;
