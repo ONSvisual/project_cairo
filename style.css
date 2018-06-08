@@ -1,0 +1,30 @@
+p,.keyword{
+  font-family: 'Cairo', sans-serif;
+}
+
+.container {
+  margin: 20px;
+  width: 28%;
+  max-width: 333px;
+  display: inline-block;
+  float:left;
+  height:450px;
+}
+
+body{
+  max-width: 1000px;
+  margin:0px auto;
+}
+.title {
+  width: 100%;
+  /* display: inline-block; */
+}
+
+.thumbnail {
+  width: 100%;
+  /* display: inline-block; */
+}
+
+img {
+  width: 100%;
+}

@@ -1,0 +1,132 @@
+// get google sheets data
+var publicSpreadsheetUrl = 'https://docs.google.com/spreadsheets/d/1ekruh3QMhnZsiZ4ddRHqFQBBKn7f2vLcI72sH5KPAgg/edit?usp=sharing';
+
+  function init() {
+    Tabletop.init( { key: publicSpreadsheetUrl,
+                     callback: showInfo,
+                     simpleSheet: true } )
+  }
+
+  function showInfo(data_links) {
+
+    for(i=0; i<data_links.length; i++) {
+      var link = data_links[i]['FULL_ONS_URL'];
+      makeCorsRequest(link)
+    }
+  }
+
+  window.addEventListener('DOMContentLoaded', init);
+
+  // Create the XHR object.
+function createCORSRequest(method, url) {
+  var xhr = new XMLHttpRequest();
+  if ("withCredentials" in xhr) {
+    // XHR for Chrome/Firefox/Opera/Safari.
+    xhr.open(method, url, true);
+  } else if (typeof XDomainRequest != "undefined") {
+    // XDomainRequest for IE.
+    xhr = new XDomainRequest();
+    xhr.open(method, url);
+  } else {
+    // CORS not supported.
+    xhr = null;
+  }
+
+  return xhr;
+}
+
+
+// Helper method to parse the title tag from the response.
+function getTitle(text) {
+  return text.match('<title>(.*)?</title>')[1];
+}
+
+// Make the actual CORS request.
+function makeCorsRequest(link) {
+  // This is a sample server that supports CORS.
+  var url = link+'/data';
+
+  var xhr = createCORSRequest('GET', url);
+  if (!xhr) {
+    return;
+  }
+  xhr.addEventListener('load', processResponse);
+
+  // Response handlers.
+  xhr.onload = function() {
+    var text = 'success';
+  };
+
+  xhr.send();
+}
+
+//     // Function that will process the response from the API
+    var processResponse = function() {
+        var data = JSON.parse(this.response);
+        console.log(data)
+
+        // place holders
+        var element = document.getElementById("page");
+        var container = document.createElement('div');
+        container.className = 'container';
+
+        //image
+        var img = document.createElement('img');
+        var divImage = document.createElement("div");
+        divImage.className = 'thumbnail';
+        if (data.imageUri === '') {
+          img.src = 'generic.png';
+        } else if (data.imageUri === undefined) {
+          img.src = 'generic.png';
+        } else {
+          img.src = 'https://www.ons.gov.uk/resource?uri='+ data.imageUri;
+
+        }
+        divImage.appendChild(img);
+        container.appendChild(divImage);
+        element.appendChild(container);
+
+        //title + link
+        var divTitle = document.createElement('div');
+        divTitle.className = 'title';
+        var link = document.createElement('a');
+        var node = document.createTextNode(data.description.title);
+        var title = document.createElement('p');
+        title.appendChild(node);
+        link.appendChild(title);
+        link.href = 'https://www.ons.gov.uk/' + data.uri;
+        divTitle.appendChild(link);
+        container.appendChild(divTitle);
+        element.appendChild(container);
+
+        // pub date
+        var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        var divDate = document.createElement('div');
+        divDate.className = 'date';
+        var dateNode = document.createTextNode(new Date(data.description.releaseDate).toLocaleDateString('en-GB', options));
+        var date = document.createElement('p');
+        date.appendChild(dateNode);
+        divDate.appendChild(date);
+        container.appendChild(divDate);
+        element.appendChild(container);
+
+        // keywords
+        var divKey = document.createElement('div');
+        divKey.className = 'keyword';
+        if(data.description.keywords && data.description.keywords.length > 1) {
+          for(j=0; j<data.description.keywords.length; j++) {
+            if(data.description.keywords[j] === "") {
+              continue;
+            } else {
+              var keyword = data.description.keywords[j]+" | ";
+            }
+            var keyNode = document.createTextNode(keyword);
+            divKey.appendChild(keyNode);
+          }
+          container.appendChild(divKey);
+          element.appendChild(container);
+        }
+
+
+
+    }
