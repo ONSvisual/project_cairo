@@ -90,7 +90,7 @@ function makeCorsRequest(link) {
 
         }
         imageLink.appendChild(img);
-        imageLink.href = 'https://www.ons.gov.uk/' + data.uri;
+        imageLink.href = 'https://www.ons.gov.uk' + data.uri;
         imageLink.target="_blank";
         divImage.appendChild(imageLink);
         container.appendChild(divImage);
