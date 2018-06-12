@@ -1,25 +1,30 @@
 // get google sheets data
 var publicSpreadsheetUrl = 'https://docs.google.com/spreadsheets/d/1ekruh3QMhnZsiZ4ddRHqFQBBKn7f2vLcI72sH5KPAgg/edit?usp=sharing';
-
+var data_links;
   function init() {
     Tabletop.init( { key: publicSpreadsheetUrl,
                      callback: showInfo,
                      simpleSheet: true } );
   }
+  function gettingData(i) {
+    var link = data_links[data_links.length-(i+1)]['FULL_ONS_URL'];
+    // setTimeout(function() {
+      makeCorsRequest(link);
+    // },10000)
+  }
 
-  function showInfo(data_links) {
-    console.log(data_links)
+  function showInfo(data_link) {
+    console.log(data_link)
+    data_links = data_link
 
-    function gettingData(i) {
-      setTimeout(function() {
-        var link = data_links[data_links.length-(i+1)]['FULL_ONS_URL'];
-        makeCorsRequest(link);
-      },100)
-    }
-
-    for(i=0; i<data_links.length; i++) {
-      (gettingData(i))
-    }
+    // setTimeout(function() {
+      for(i=0; i<data_links.length; i++) {
+        (function(i) {
+          setTimeout(function () {
+            gettingData(i)
+          }, 100*i);
+        })(i)
+      }
   }
 
   window.addEventListener('DOMContentLoaded', init);
