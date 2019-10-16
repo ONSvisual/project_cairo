@@ -109,7 +109,7 @@ function makeCorsRequest(link) {
         var title = document.createElement('p');
         title.appendChild(node);
         link.appendChild(title);
-        link.href = 'https://www.ons.gov.uk/' + data.uri;
+        link.href = 'https://www.ons.gov.uk' + data.uri;
         link.target="_blank";
         divTitle.appendChild(link);
         container.appendChild(divTitle);
