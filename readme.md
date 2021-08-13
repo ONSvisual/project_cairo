@@ -6,7 +6,6 @@
 
 or
 
-- Click [here](https://github.com/ONSvisual/project_cairo/blob/master/data/data_links.txt)
-- Tap the e key to edit
-- Add another URL at the end of the file
+- Click [here](https://github.com/ONSvisual/project_cairo/blob/master/data/data_links.txt) to edit `data/data_links.txt`
+- Tap the e key to edit, then add a URL at the end of the file
 - Use the box at the bottom of the page to commit directly to the master branch
