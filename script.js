@@ -1,11 +1,14 @@
 // get google sheets data
 var publicSpreadsheetUrl = 'https://docs.google.com/spreadsheets/d/1ekruh3QMhnZsiZ4ddRHqFQBBKn7f2vLcI72sH5KPAgg/edit?usp=sharing';
 var data_links;
+
   function init() {
-    Tabletop.init( { key: publicSpreadsheetUrl,
-                     callback: showInfo,
-                     simpleSheet: true } );
+    var oReq = new XMLHttpRequest();
+    oReq.addEventListener("load", showInfo);
+    oReq.open("GET", "data/data_links.txt");
+    oReq.send();
   }
+
   function gettingData(i) {
     var link = data_links[data_links.length-(i+1)]['FULL_ONS_URL'];
     // setTimeout(function() {
@@ -13,9 +16,14 @@ var data_links;
     // },10000)
   }
 
-  function showInfo(data_link) {
-    console.log(data_link)
-    data_links = data_link
+  function showInfo() {
+    data_links = [];
+    this.responseText.split('\n').forEach(function(d) {
+      if (d.length > 0) {
+        data_links.push({FULL_ONS_URL: d, l: d.length});
+      }
+    });
+    console.log(data_links)
 
     // setTimeout(function() {
       for(i=0; i<data_links.length; i++) {
