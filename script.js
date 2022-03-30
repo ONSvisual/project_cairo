@@ -1,41 +1,50 @@
-// get google sheets data
-var publicSpreadsheetUrl = 'https://docs.google.com/spreadsheets/d/1ekruh3QMhnZsiZ4ddRHqFQBBKn7f2vLcI72sH5KPAgg/edit?usp=sharing';
-var data_links;
+var links={};
+
+
+window.addEventListener('DOMContentLoaded', init);
+
 
   function init() {
     var oReq = new XMLHttpRequest();
     oReq.addEventListener("load", showInfo);
-    oReq.open("GET", "data/data_links.txt");
+    oReq.divId='coproduction';
+    oReq.open("GET", "data/coproduction.txt");
     oReq.send();
+
+    var oReq2 = new XMLHttpRequest();
+    oReq2.addEventListener("load", showInfo);
+    oReq2.divId='novel';
+    oReq2.open("GET", "data/novel.txt");
+    oReq2.send();
+
   }
 
-  function gettingData(i) {
-    var link = data_links[data_links.length-(i+1)]['FULL_ONS_URL'];
-    // setTimeout(function() {
-      makeCorsRequest(link);
-    // },10000)
+  function gettingData(i,divId) {
+    var link = links[divId][links[divId].length-(i+1)]['FULL_ONS_URL'];
+      makeCorsRequest(link,divId);
   }
 
-  function showInfo() {
-    data_links = [];
+
+  function showInfo(evt) {
+    var divId=evt.currentTarget.divId
+
+
+    links[divId] = [];
     this.responseText.split('\n').forEach(function(d) {
       if (d.length > 0) {
-        data_links.push({FULL_ONS_URL: d, l: d.length});
+        links[divId].push({FULL_ONS_URL: d});
       }
     });
-    console.log(data_links)
 
     // setTimeout(function() {
-      for(i=0; i<data_links.length; i++) {
+      for(i=0; i<links[divId].length; i++) {
         (function(i) {
           setTimeout(function () {
-            gettingData(i)
-          }, 100*i);
+            gettingData(i,divId)
+          }, 400*i);
         })(i)
       }
   }
-
-  window.addEventListener('DOMContentLoaded', init);
 
   // Create the XHR object.
 function createCORSRequest(method, url) {
@@ -56,13 +65,8 @@ function createCORSRequest(method, url) {
 }
 
 
-// Helper method to parse the title tag from the response.
-function getTitle(text) {
-  return text.match('<title>(.*)?</title>')[1];
-}
-
 // Make the actual CORS request.
-function makeCorsRequest(link) {
+function makeCorsRequest(link,divId) {
   // This is a sample server that supports CORS.
   var url = link+'/data';
 
@@ -71,6 +75,7 @@ function makeCorsRequest(link) {
     return;
   }
   xhr.addEventListener('load', processResponse);
+  xhr.divId=divId;
 
   // Response handlers.
   xhr.onload = function() {
@@ -83,9 +88,10 @@ function makeCorsRequest(link) {
 //     // Function that will process the response from the API
     var processResponse = function() {
         var data = JSON.parse(this.response);
+        var divId = data.divId
 
         // place holders
-        var element = document.getElementById("page");
+        var element = document.getElementById(divId);
         var container = document.createElement('div');
         container.className = 'container';
 

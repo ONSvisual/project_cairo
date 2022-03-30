@@ -230,8 +230,6 @@ https://www.ons.gov.uk/peoplepopulationandcommunity/healthandsocialcare/conditio
 https://www.ons.gov.uk/economy/environmentalaccounts/articles/howhaslockdownchangedourrelationshipwithnature/2021-04-26
 https://www.ons.gov.uk/peoplepopulationandcommunity/healthandsocialcare/conditionsanddiseases/articles/coronaviruscovid19inchartswhatwelearnedoverthepastmonthmarchtoapril2021/2021-04-30
 https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/deaths/articles/deathsathomeincreasedbyathirdin2020whiledeathsinhospitalsfellexceptforcovid19/2021-05-07
-https://www.ons.gov.uk/economy/regionalaccounts/grossdisposablehouseholdincome/articles/mappingregionaldifferencesinproductivityandhouseholdincome/2021-05-17
-https://www.ons.gov.uk/peoplepopulationandcommunity/personalandhouseholdfinances/incomeandwealth/articles/mappingincomedeprivationatalocalauthoritylevel/2021-05-24
 https://www.ons.gov.uk/peoplepopulationandcommunity/healthandsocialcare/conditionsanddiseases/articles/coronaviruscovid19inchartswhatwelearnedoverthepastmonthmay2021/2021-05-27
 https://www.ons.gov.uk/peoplepopulationandcommunity/healthandsocialcare/conditionsanddiseases/articles/economiesofalepubsinthetimeofcovid19/2021-06-08
 https://www.ons.gov.uk/peoplepopulationandcommunity/leisureandtourism/articles/redamberandgreentravellistsandoverseasvisitsfromtheuk/2021-06-10
@@ -257,4 +255,3 @@ https://www.ons.gov.uk/peoplepopulationandcommunity/wellbeing/articles/subnation
 https://www.ons.gov.uk/peoplepopulationandcommunity/personalandhouseholdfinances/incomeandwealth/articles/incomespendingandwealthhowdoyoucompare/2022-03-09
 https://www.ons.gov.uk/peoplepopulationandcommunity/wellbeing/articles/coronaviruscovid19disabledpeoplearemorelikelytofeellifewillneverreturntonormal/2022-03-16
 https://www.ons.gov.uk/peoplepopulationandcommunity/healthandsocialcare/healthandwellbeing/articles/howhealthhaschangedinyourlocalarea/2022-03-18
-https://www.ons.gov.uk/economy/inflationandpriceindices/articles/howisinflationaffectingyourhouseholdcosts/2022-03-23
