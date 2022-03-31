@@ -1,4 +1,5 @@
 var links={};
+var counter={};
 
 
 window.addEventListener('DOMContentLoaded', init);
@@ -16,7 +17,7 @@ window.addEventListener('DOMContentLoaded', init);
     oReq.divId='novel';
     oReq.open("GET", "data/novel.txt");
     oReq.send();
-    
+
     var oReq = new XMLHttpRequest();
     oReq.addEventListener("load", showInfo);
     oReq.divId='tools';
@@ -53,15 +54,35 @@ window.addEventListener('DOMContentLoaded', init);
       }
     });
 
+    if(links[divId].length>3){
+      var element = document.getElementById(divId+'-section');
+      var button = document.createElement('button');
+      button.className="button"
+      button.innerHTML="Show more"
+      button.addEventListener('click',function(){
+        console.log(counter[divId])
+        var j=0;
+        while(j<3){
+              gettingData(counter[divId]+j+1,divId);
+              j++;
+              if(j==3){counter[divId]=counter[divId]+3};
+        }
+
+
+      })
+      element.appendChild(button)
+    }
+
     // setTimeout(function() {
       // for(i=0; i<links[divId].length; i++) {
-      for(i=0; i<10; i++) {
+      for(i=0; i<3; i++) {
 
         (function(i) {
           setTimeout(function () {
             gettingData(i,divId)
           }, 400*i);
         })(i)
+        counter[divId]=i
       }
   }
 
