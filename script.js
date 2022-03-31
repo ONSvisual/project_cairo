@@ -11,11 +11,29 @@ window.addEventListener('DOMContentLoaded', init);
     oReq.open("GET", "data/coproduction.txt");
     oReq.send();
 
-    var oReq2 = new XMLHttpRequest();
-    oReq2.addEventListener("load", showInfo);
-    oReq2.divId='novel';
-    oReq2.open("GET", "data/novel.txt");
-    oReq2.send();
+    var oReq = new XMLHttpRequest();
+    oReq.addEventListener("load", showInfo);
+    oReq.divId='novel';
+    oReq.open("GET", "data/novel.txt");
+    oReq.send();
+    
+    var oReq = new XMLHttpRequest();
+    oReq.addEventListener("load", showInfo);
+    oReq.divId='tools';
+    oReq.open("GET", "data/tools.txt");
+    oReq.send();
+
+    var oReq = new XMLHttpRequest();
+    oReq.addEventListener("load", showInfo);
+    oReq.divId='visualisations';
+    oReq.open("GET", "data/visualisations.txt");
+    oReq.send();
+
+    var oReq = new XMLHttpRequest();
+    oReq.addEventListener("load", showInfo);
+    oReq.divId='writing';
+    oReq.open("GET", "data/writing.txt");
+    oReq.send();
 
   }
 
@@ -28,7 +46,6 @@ window.addEventListener('DOMContentLoaded', init);
   function showInfo(evt) {
     var divId=evt.currentTarget.divId
 
-
     links[divId] = [];
     this.responseText.split('\n').forEach(function(d) {
       if (d.length > 0) {
@@ -37,7 +54,9 @@ window.addEventListener('DOMContentLoaded', init);
     });
 
     // setTimeout(function() {
-      for(i=0; i<links[divId].length; i++) {
+      // for(i=0; i<links[divId].length; i++) {
+      for(i=0; i<10; i++) {
+
         (function(i) {
           setTimeout(function () {
             gettingData(i,divId)
@@ -86,9 +105,9 @@ function makeCorsRequest(link,divId) {
 }
 
 //     // Function that will process the response from the API
-    var processResponse = function() {
+    var processResponse = function(evt) {
         var data = JSON.parse(this.response);
-        var divId = data.divId
+        var divId = evt.target.divId
 
         // place holders
         var element = document.getElementById(divId);
@@ -100,19 +119,19 @@ function makeCorsRequest(link,divId) {
         var divImage = document.createElement("div");
         var imageLink = document.createElement('a');
         divImage.className = 'thumbnail';
-        if (data.imageUri === '') {
-          img.src = 'generic.png';
-        } else if (data.imageUri === undefined) {
-          img.src = 'generic.png';
+        if (data.imageUri === ''||data.imageUri === undefined) {
+
+        // } else if (data.imageUri === undefined) {
+        //   img.src = 'generic.png';
         } else {
           img.src = 'https://www.ons.gov.uk/resource?uri='+ data.imageUri;
-
+          imageLink.appendChild(img);
+          imageLink.href = 'https://www.ons.gov.uk' + data.uri;
+          imageLink.target="_blank";
+          divImage.appendChild(imageLink);
+          container.appendChild(divImage);
         }
-        imageLink.appendChild(img);
-        imageLink.href = 'https://www.ons.gov.uk' + data.uri;
-        imageLink.target="_blank";
-        divImage.appendChild(imageLink);
-        container.appendChild(divImage);
+
         element.appendChild(container);
 
         //title + link
@@ -141,21 +160,21 @@ function makeCorsRequest(link,divId) {
         element.appendChild(container);
 
         // keywords
-        var divKey = document.createElement('div');
-        divKey.className = 'keyword';
-        if(data.description.keywords && data.description.keywords.length > 1) {
-          for(j=0; j<data.description.keywords.length; j++) {
-            if(data.description.keywords[j] === "") {
-              continue;
-            } else {
-              var keyword = data.description.keywords[j]+" | ";
-            }
-            var keyNode = document.createTextNode(keyword);
-            divKey.appendChild(keyNode);
-          }
-          container.appendChild(divKey);
-          element.appendChild(container);
-        }
+        // var divKey = document.createElement('div');
+        // divKey.className = 'keyword';
+        // if(data.description.keywords && data.description.keywords.length > 1) {
+        //   for(j=0; j<data.description.keywords.length; j++) {
+        //     if(data.description.keywords[j] === "") {
+        //       continue;
+        //     } else {
+        //       var keyword = data.description.keywords[j]+" | ";
+        //     }
+        //     var keyNode = document.createTextNode(keyword);
+        //     divKey.appendChild(keyNode);
+        //   }
+        //   container.appendChild(divKey);
+        //   element.appendChild(container);
+        // }
 
 
 
