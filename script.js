@@ -39,8 +39,13 @@ window.addEventListener('DOMContentLoaded', init);
   }
 
   function gettingData(i,divId) {
-    var link = links[divId][links[divId].length-(i+1)]['FULL_ONS_URL'];
-      makeCorsRequest(link,divId);
+    if(links[divId][links[divId].length-(i+1)]){
+      console.log(links[divId][links[divId].length-(i+1)])
+      var link = links[divId][links[divId].length-(i+1)]['FULL_ONS_URL'];
+        makeCorsRequest(link,divId);
+    }else{
+      document.getElementById(divId+"Button").style.display = "none"
+    }
   }
 
 
@@ -58,6 +63,7 @@ window.addEventListener('DOMContentLoaded', init);
       var element = document.getElementById(divId+'-section');
       var button = document.createElement('button');
       button.className="button"
+      button.id=divId+"Button"
       button.innerHTML="Show more"
       button.addEventListener('click',function(){
         console.log(counter[divId])
