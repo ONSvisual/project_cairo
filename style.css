@@ -15,15 +15,8 @@ p,.keyword{
 .container {
   margin-right: 10px;
   margin-bottom:20px;
-  /* padding:10px; */
   background-color:#eee;
   width: 30%;
-  /* max-width: 333px;
-  display: inline-block;
-  float:left;
-  height:400px; */
-  /* flex-basis: 0;
-  justify-content: space-between; */
 }
 
 body{
@@ -51,11 +44,20 @@ a {
     text-decoration: none;
     color: black;
     font-weight: 700;
-    /* font-size: 18px; */
 }
 
-div#examples{
+div.examples{
   display:flex;
   flex-direction: column;
   flex-wrap: nowrap;
+}
+
+@media only screen and (max-width: 420px) {
+  .section{
+    flex-direction: column;
+  }
+
+  .container{
+    width:100%;
+  }
 }
