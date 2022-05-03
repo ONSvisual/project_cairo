@@ -40,7 +40,6 @@ window.addEventListener('DOMContentLoaded', init);
 
   function gettingData(i,divId) {
     if(links[divId][links[divId].length-(i+1)]){
-      console.log(links[divId][links[divId].length-(i+1)])
       var link = links[divId][links[divId].length-(i+1)]['FULL_ONS_URL'];
         makeCorsRequest(link,divId);
     }else{
