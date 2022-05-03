@@ -65,7 +65,6 @@ window.addEventListener('DOMContentLoaded', init);
       button.id=divId+"Button"
       button.innerHTML="Show more"
       button.addEventListener('click',function(){
-        console.log(counter[divId])
         var j=0;
         while(j<3){
               gettingData(counter[divId]+j+1,divId);
